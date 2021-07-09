@@ -39,8 +39,8 @@ type FileOptions = {
 };
 
 type ReadDirItem = {
-  ctime: ?Date;    // The creation date of the file (iOS only)
-  mtime: ?Date;    // The last modified date of the file
+  ctime?: Date;    // The creation date of the file (iOS only)
+  mtime?: Date;    // The last modified date of the file
   name: string;     // The name of the item
   path: string;     // The absolute path to the item
   size: string;     // Size in bytes
@@ -49,7 +49,7 @@ type ReadDirItem = {
 };
 
 type StatResult = {
-  name: ?string;     // The name of the item TODO: why is this not documented?
+  name?: string;     // The name of the item TODO: why is this not documented?
   path: string;     // The absolute path to the item
   size: string;     // Size in bytes
   mode: number;     // UNIX file mode
@@ -144,7 +144,7 @@ type FSInfoResult = {
 /**
  * Generic function used by readFile and readFileAssets
  */
-function readFileGeneric(filepath: string, encodingOrOptions: ?string, command: Function) {
+function readFileGeneric(filepath: string, command: Function, encodingOrOptions?: string) {
   var options = {
     encoding: 'utf8'
   };
@@ -237,7 +237,7 @@ var RNFS = {
     RNFSManager.resumeDownload(jobId);
   },
 
-  isResumable(jobId: number): Promise<bool> {
+  isResumable(jobId: number): Promise<boolean> {
     return RNFSManager.isResumable(jobId);
   },
 
@@ -307,7 +307,7 @@ var RNFS = {
   },
 
   readFile(filepath: string, encodingOrOptions?: any): Promise<string> {
-    return readFileGeneric(filepath, encodingOrOptions, RNFSManager.readFile);
+    return readFileGeneric(filepath, RNFSManager.readFile, encodingOrOptions);
   },
 
   read(filepath: string, length: number = 0, position: number = 0, encodingOrOptions?: any): Promise<string> {
@@ -345,7 +345,7 @@ var RNFS = {
     if (!RNFSManager.readFileAssets) {
       throw new Error('readFileAssets is not available on this platform');
     }
-    return readFileGeneric(filepath, encodingOrOptions, RNFSManager.readFileAssets);
+    return readFileGeneric(filepath, RNFSManager.readFileAssets, encodingOrOptions);
   },
 
   // Android only
@@ -353,7 +353,7 @@ var RNFS = {
     if (!RNFSManager.readFileRes) {
       throw new Error('readFileRes is not available on this platform');
     }
-    return readFileGeneric(filename, encodingOrOptions, RNFSManager.readFileRes);
+    return readFileGeneric(filename, RNFSManager.readFileRes, encodingOrOptions);
   },
 
   hash(filepath: string, algorithm: string): Promise<string> {
@@ -513,7 +513,7 @@ var RNFS = {
 
     if (options.resumable) {
       subscriptions.push(RNFS_NativeEventEmitter.addListener('DownloadResumable', (res) => {
-        if (res.jobId === jobId) options.resumable(res);
+        if (res.jobId === jobId) options.resumable();
       }));
     }
 
