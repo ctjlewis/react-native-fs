@@ -2,24 +2,19 @@
  * React Native FS
  * @flow
  */
-
-'use strict';
-
 // This file supports both iOS and Android
 
-var RNFSManager = require('react-native').NativeModules.RNFSManager;
+import RN from 'react-native';
+import base64 from 'base-64';
+import utf8 from 'utf8';
 
-var NativeEventEmitter = require('react-native').NativeEventEmitter;
-
+var RNFSManager = RN.NativeModules.RNFSManager;
+var NativeEventEmitter = RN.NativeEventEmitter;
 var RNFS_NativeEventEmitter = new NativeEventEmitter(RNFSManager);
-
-var base64 = require('base-64');
-var utf8 = require('utf8');
-var isIOS = require('react-native').Platform.OS === 'ios';
-
 var RNFSFileTypeRegular = RNFSManager.RNFSFileTypeRegular;
 var RNFSFileTypeDirectory = RNFSManager.RNFSFileTypeDirectory;
 
+var isIOS = RN.Platform.OS === 'ios';
 var jobId = 0;
 
 var getJobId = () => {

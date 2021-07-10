@@ -10,7 +10,8 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
-  },  "typings": "index.d.ts",
+  },
+  "typings": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
@@ -34,6 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "base-64": "^0.1.0",
+    "react-native": "^0.64.2",
     "typescript": "^4.3.5",
     "utf8": "^3.0.0"
   },

@@ -1,18 +1,25 @@
 'use strict';
 
+var RN = require('react-native');
+var base64 = require('base-64');
+var utf8 = require('utf8');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var RN__default = /*#__PURE__*/_interopDefaultLegacy(RN);
+var base64__default = /*#__PURE__*/_interopDefaultLegacy(base64);
+var utf8__default = /*#__PURE__*/_interopDefaultLegacy(utf8);
+
 /**
  * React Native FS
  * @flow
  */
-// This file supports both iOS and Android
-var RNFSManager = require('react-native').NativeModules.RNFSManager;
-var NativeEventEmitter = require('react-native').NativeEventEmitter;
+var RNFSManager = RN__default['default'].NativeModules.RNFSManager;
+var NativeEventEmitter = RN__default['default'].NativeEventEmitter;
 var RNFS_NativeEventEmitter = new NativeEventEmitter(RNFSManager);
-var base64 = require('base-64');
-var utf8 = require('utf8');
-var isIOS = require('react-native').Platform.OS === 'ios';
 var RNFSFileTypeRegular = RNFSManager.RNFSFileTypeRegular;
 var RNFSFileTypeDirectory = RNFSManager.RNFSFileTypeDirectory;
+var isIOS = RN__default['default'].Platform.OS === 'ios';
 var jobId = 0;
 var getJobId = () => {
     jobId += 1;
@@ -37,10 +44,10 @@ function readFileGeneric(filepath, command, encodingOrOptions) {
     return command(normalizeFilePath(filepath)).then((b64) => {
         var contents;
         if (options.encoding === 'utf8') {
-            contents = utf8.decode(base64.decode(b64));
+            contents = utf8__default['default'].decode(base64__default['default'].decode(b64));
         }
         else if (options.encoding === 'ascii') {
-            contents = base64.decode(b64);
+            contents = base64__default['default'].decode(b64);
         }
         else if (options.encoding === 'base64') {
             contents = b64;
@@ -178,10 +185,10 @@ var RNFS = {
         return RNFSManager.read(normalizeFilePath(filepath), length, position).then((b64) => {
             var contents;
             if (options.encoding === 'utf8') {
-                contents = utf8.decode(base64.decode(b64));
+                contents = utf8__default['default'].decode(base64__default['default'].decode(b64));
             }
             else if (options.encoding === 'ascii') {
-                contents = base64.decode(b64);
+                contents = base64__default['default'].decode(b64);
             }
             else if (options.encoding === 'base64') {
                 contents = b64;
@@ -254,10 +261,10 @@ var RNFS = {
             }
         }
         if (options.encoding === 'utf8') {
-            b64 = base64.encode(utf8.encode(contents));
+            b64 = base64__default['default'].encode(utf8__default['default'].encode(contents));
         }
         else if (options.encoding === 'ascii') {
-            b64 = base64.encode(contents);
+            b64 = base64__default['default'].encode(contents);
         }
         else if (options.encoding === 'base64') {
             b64 = contents;
@@ -281,10 +288,10 @@ var RNFS = {
             }
         }
         if (options.encoding === 'utf8') {
-            b64 = base64.encode(utf8.encode(contents));
+            b64 = base64__default['default'].encode(utf8__default['default'].encode(contents));
         }
         else if (options.encoding === 'ascii') {
-            b64 = base64.encode(contents);
+            b64 = base64__default['default'].encode(contents);
         }
         else if (options.encoding === 'base64') {
             b64 = contents;
@@ -308,10 +315,10 @@ var RNFS = {
             }
         }
         if (options.encoding === 'utf8') {
-            b64 = base64.encode(utf8.encode(contents));
+            b64 = base64__default['default'].encode(utf8__default['default'].encode(contents));
         }
         else if (options.encoding === 'ascii') {
-            b64 = base64.encode(contents);
+            b64 = base64__default['default'].encode(contents);
         }
         else if (options.encoding === 'base64') {
             b64 = contents;
